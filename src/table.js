@@ -24,7 +24,7 @@ var Table = (function(document) {
     // create thead columns
     for (i = 0, len = options.columns.length; i < len; i++) {
       var td = document.createElement('td');
-      td.innerText = options.columns[i];
+      td.innerText = td.textContent = options.columns[i];
       td.columnIndex = i;
       tr.appendChild(td);
     }
@@ -72,7 +72,7 @@ var Table = (function(document) {
 
       for (i = 0, len = rowData.length; i < len; i++) {
         var td = document.createElement('td');
-        td.innerText = rowData[i];
+        td.innerText = td.textContent = rowData[i];
         tr.appendChild(td);
       }
       // add row element reference at last index
@@ -104,7 +104,7 @@ var Table = (function(document) {
         tr = document.createElement('tr');
         for (i = 0, len = rowData.length; i < len; i++) {
           var td = document.createElement('td');
-          td.innerText = rowData[i];
+          td.innerText = td.textContent = rowData[i];
           tr.appendChild(td);
         }
         rowData.push(tr);
@@ -157,7 +157,7 @@ var Table = (function(document) {
       }
 
       for (i = 0, len = rows.length; i < len; i++) {
-        var valueToSort = rows[i].cells[columnIndex].innerText;
+        var valueToSort = rows[i].cells[columnIndex].innerText || rows[i].cells[columnIndex].textContent;
         store.push([valueToSort, rows[i]]);
       }
       // sort rows
@@ -181,7 +181,8 @@ var Table = (function(document) {
       this.reset();
       searchKey += ""; // cast
       for (i = 0, len = rows.length; i < len; i++) {
-        if (rows[i].cells[columnIndex].innerText.indexOf(searchKey) !== -1) {
+        var text = rows[i].cells[columnIndex].innerText || rows[i].cells[columnIndex].textContent;
+        if (text.indexOf(searchKey) !== -1) {
           result = true;
         } else {
           rows[i].style.display = 'none';
