@@ -1,0 +1,25 @@
+{
+  "name": "table.js",
+  "version": "0.1.0",
+  "authors": [
+    "Luiz \"Bills\" <luizpbills@gmail.com>"
+  ],
+  "description": "html table controller",
+  "main": "src/table.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "html",
+    "js",
+    "table",
+    "add",
+    "insert",
+    "remove",
+    "delete",
+    "sort",
+    "search"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/luizbills/table.js"
+}

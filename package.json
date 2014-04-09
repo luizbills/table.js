@@ -1,0 +1,24 @@
+{
+  "name": "table.js",
+  "version": "0.1.0",
+  "description": "html table controller",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luizbills/Table.js.git"
+  },
+  "keywords": [
+    "html",
+    "table",
+    "js",
+    "add",
+    "remove",
+    "sort",
+    "search"
+  ],
+  "author": "Luiz \"Bills\"",
+  "license": "http://mit-license.org/luizbills",
+  "bugs": {
+    "url": "https://github.com/luizbills/Table.js/issues"
+  },
+  "homepage": "https://github.com/luizbills/Table.js"
+}

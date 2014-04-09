@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Table.js Sample</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <style>
+    /*custom style*/
+    body,
+    .table,
+    label {
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    a {
+      font-size: 2.5em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="table-container">
+    <div class="row">
+      <div class="col-md-4">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal">
+          Insert
+        </button>
+        <button type="button" id='delete' class="btn btn-danger">
+          Delete
+        </button>
+        <label>Sorted: No</label>
+      </div>
+      <div class="col-md-offset-4 col-md-4">
+        <input type="text" class="form-control" id="search-bar" placeholder="Search...">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <label class="text-info">Note: click on table head to sort</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <p class='text-center'>
+      <a href="http://github.com/luizbills/table.js/">GitHub Repository</a>
+    </p>
+  </div>
+
+  <!-- bootstrap modal -->
+  <div id="modal" class="modal fade">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">New Entry</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form">
+            <div class="form-group">
+              <label>Object:</label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Code:</label>
+              <input type="text" class="form-control">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button id="modal-save" type="button" class="btn btn-primary" data-dismiss="modal">
+            Save
+          </button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Cancel
+          </button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <script src="../src/table.js"></script>
+  <script>
+    var $modal = $('#modal');
+
+    var sampleTable = new Table({
+      class: 'table table-bordered table-hover', // bootstrap style
+      parentId: 'table-container', // id of parent element of new table
+      columns: ['Object', 'Code'],
+      data: [
+        // initial rows
+        ['Box', '125'],
+        ['Pen', '856'],
+        ['Book', '651']
+        ]
+      });
+
+    var selectedRow = null;
+    var sortState = 'normal';
+
+    function getModalValues() {
+      var values = [];
+      $modal.find('input[type=text]').each(function() {
+        values.push($(this).val());
+      });
+      return values;
+    }
+
+    function selectRow() {
+      if (selectedRow !== null) {
+        selectedRow.removeClass('active');
+      }
+      selectedRow = $(this);
+      selectedRow.addClass('active');
+    }
+
+    function deleteRow() {
+      if (selectedRow === null) {
+        return alert('Please select a row');
+      }
+      // use [0] because it's a jquery collection
+      sampleTable.removeRow(selectedRow[0]);
+      // remove leaks
+      selectedRow.off()
+      selectedRow = null;
+    }
+
+    $('#modal-save').on('click', function() {
+      var rowData = getModalValues();
+      var rowElement = sampleTable.addRow(rowData);
+      $(rowElement).on('click', selectRow);
+    });
+
+    $('#delete').on('click', deleteRow);
+
+    $('tbody tr').on('click', selectRow);
+
+    $('thead td').on('click', function() {
+      switch(sortState) {
+        case 'normal':
+          sampleTable.sort(this.columnIndex, false); // sort ascending
+          sortState = 'ascending';
+          break;
+          case 'ascending':
+          sampleTable.sort(this.columnIndex, true); // sort descending
+          sortState = 'descending';
+          break;
+          case 'descending':
+          sampleTable.reset(); // return to initial order
+          sortState = 'normal';
+          break;
+        }
+
+        $('#table-container').find('label').text('Sorted: ' + (sortState !== 'normal' ? 'Yes (' + sortState + ')' : 'No'));
+      });
+
+    $('#search-bar').on('keyup', function() {
+      sampleTable.search($(this).val(), 0) // search into First (index = 0) column
+    });
+  </script>
+</body>
+</html>
