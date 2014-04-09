@@ -1,8 +1,11 @@
 #Table.js
 HTML Table Controller (add/remove/sort/search rows)
 
-### [Download](https://rawgithub.com/luizbills/table.js/master/src/table.js)
 ### [Demo](https://rawgithub.com/luizbills/table.js/master/samples/index.html)
+
+###Download
+
+install via `bower install table.js` or `npm install table.js`
 
 ##API Quick Start
 
