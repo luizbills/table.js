@@ -12,10 +12,10 @@ install via `bower install table.js` or `npm install table.js`
 Table constructor
 ```js
   var myTable = new Table({
-    "id": "myTable", // id of table element
-    "class": "table", // classes of element
-    "columns": ['Column1', 'Column2', 'Column3'], // name of columns
-    "data": [
+    'id': 'myTable', // id of table element
+    'class': 'table', // classes of element
+    'columns': ['Column1', 'Column2', 'Column3'], // name of columns
+    'data': [
       ['value1', 'value2', 'value3'], // values of first row
       ['value1', 'value2', 'value3'] // values of second row
     ]
