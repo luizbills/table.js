@@ -1,5 +1,5 @@
 /*
- * Table.js v0.1.0
+ * Table.js v0.1.1
  * MIT Licensed http://luizbills.mit-license.org
 */
 var Table = (function(document) {
